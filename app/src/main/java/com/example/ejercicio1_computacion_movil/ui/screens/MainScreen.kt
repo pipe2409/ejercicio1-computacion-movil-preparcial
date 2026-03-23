@@ -1,19 +1,11 @@
 package com.example.ejercicio1_computacion_movil.ui.screens
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.material3.Card
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
+import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -40,29 +32,43 @@ fun MainScreen(navController: NavController) {
     Column(
         modifier = Modifier
             .fillMaxSize()
+            .systemBarsPadding()
             .padding(16.dp),
-
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
+        // Espacio entre la parte superior y el logo (Peso 1)
+        Spacer(modifier = Modifier.weight(1f))
 
+        // Logo
         LogoComponent()
 
-        Spacer(modifier = Modifier.height(20.dp))
+        // Espacio entre el logo y los campos (Peso 1)
+        Spacer(modifier = Modifier.weight(1f))
 
-        NameTextField(
-            value = nombre,
-            onValueChange = { nombre = it }
-        )
+        // Contenedor central para los campos de entrada
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center
+        ) {
+            NameTextField(
+                value = nombre,
+                onValueChange = { nombre = it }
+            )
 
-        Spacer(modifier = Modifier.height(10.dp))
+            Spacer(modifier = Modifier.height(10.dp))
 
-        LevelDropdown(selected =  nivel,
-            onSelectedChange = { nivel= it })
+            LevelDropdown(
+                selected = nivel,
+                onSelectedChange = { nivel = it }
+            )
+        }
 
-        Spacer(modifier = Modifier.height(40.dp))
+        // Espacio entre los campos y los botones (Peso 2)
+        // Usamos peso 2 para que los campos se mantengan en el centro de la pantalla
+        // (1 arriba + 1 entre logo/campos = 2 de peso total arriba de los campos)
+        Spacer(modifier = Modifier.weight(2f))
 
+        // Botones en la parte inferior
         ButtonsRow(navController)
-
     }
 }
